@@ -91,11 +91,11 @@ function WeatherData(props) {
     <>
     <div className="city-name">
        <h2>
-         {data?.name}, <span>Nepal</span>
+         {data?.name}, <span>{data.sys.country}</span>
        </h2>
      </div>
      <div className="date">
-       <span>November 25 2022</span>
+       <span> {new Date().toISOString()}</span>
      </div>
 
      <div className="icon-temp">

@@ -1,52 +1,42 @@
-import {Outlet, Link, Route, Routes} from "react-router-dom";
-import Game from "./components/Game";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import About from "./routes/About";
+import Root from "./routes/Root";
+import Post, { postLoader } from "./routes/Post";
+import Home, { fetch } from "./routes/Home";
+import NewPost, { submitPost } from "./routes/NewPost";
+import "./App.css";
 
 export default function App() {
+  const router = createBrowserRouter([{
+    path: '/',
+    element: <Root />,
+    children: [
+      {
+        path: '/',
+        element: <Home />,
+        loader: fetch,
+
+      },
+      {
+        path: '/about',
+        element: <About />
+      },
+      {
+        path: '/new',
+        element: <NewPost />,
+        action: submitPost,
+        loader: fetch,
+
+      },
+      {
+        path: '/post/:id',
+        element: <Post />,
+        loader: postLoader,
+      },
+    ],
+  },
+  ]);
   return (
-     <div>
-         <nav>
-        <ul>
-          <li>
-            <Link to='/'>Home</Link>
-
-          </li>
-          <li>
-            <Link to='/game'>Game</Link>
-          </li>
-        </ul>
-      </nav>
-    <Routes>
-      <Route path="/" element ={<Home/>} >
-      <Route path="/posts" element={<Post/>}/>
-      <Route path="/game" element={<Game/>}/>
-      </Route>
-
-      <Route path="/game" element={<Game/>} />
-    </Routes>
-  </div>
+    <RouterProvider router={router} />
   );
 }
-
-function Home() {
-  return (
-    <>
-    <div>Header</div>
-    <div>Sidebar</div>
-    <Outlet/>
-    <div>Footer</div>
-    </>
-  
-
-  )
-}
-
-function Post() {
-  return (
-    <div>
-      My posts
-    </div>
-  )
-}
-
-
-

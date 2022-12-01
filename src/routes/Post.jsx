@@ -14,6 +14,7 @@ export default function Post() {
             <h1>{post.title}</h1>
             <p>
                 {post.content}
+
             </p>
         </>
     )

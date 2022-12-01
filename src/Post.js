@@ -22,7 +22,7 @@ async function list() {
 async function find(postId) {
     const posts = await list();
     return posts.filter(function (post) {
-        return post.id == postId
+        return post.id === postId;
     })[0];
 }
 
